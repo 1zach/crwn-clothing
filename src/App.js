@@ -3,7 +3,7 @@ import './index.scss';
 import './categories.styles.scss';
 import Home from './Routes/Home/Home';
 import Navigation from './Routes/Navigation/Navigation';
-import Signin from './Routes/SignIn/Signin';
+import Authentication from './Routes/Authentication/Authentication';
 
 function App() {
 
@@ -18,7 +18,7 @@ function App() {
       <Route path="/" element={<Navigation/>}>
         <Route index={true} element={<Home />}/>
         <Route path ="shop" element={<Shop />}/>
-        <Route path ="signin" element={<Signin />}/>
+        <Route path ="authentication" element={<Authentication />}/>
       </Route>
     </Routes>
   )

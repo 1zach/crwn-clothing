@@ -1,7 +1,8 @@
-import { useState } from "react"
-import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../Utils/Firebase"
+import { useState, useContext } from "react"
+import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth, signInWithGooglePopup} from "../../Utils/Firebase"
 import FormInput from "../FormInput/FormInput"
 import Button from "../Button/Button"
+import { UserContext } from "../../Contexts/User"
 import './SignUpForm.scss'
 const defaultFormFields = {
   displayName:'',
@@ -21,6 +22,7 @@ export default function SignUpForm() {
   const [formFields, setFormFields] = useState(defaultFormFields)
   const {displayName, email, password, confirmpwd} = formFields
 
+  const {setCurrentUser} = useContext(UserContext)
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields)
@@ -43,9 +45,10 @@ export default function SignUpForm() {
         const {user} = await createAuthUserWithEmailAndPassword(email, password);
         console.log(user);
 
+        setCurrentUser(user)
+
         await createUserDocumentFromAuth(user, {displayName})
         resetFormFields()
-  
   
       } catch(error) {
         
@@ -56,6 +59,11 @@ export default function SignUpForm() {
           console.log("error")
         }
       }
+    }
+
+    const logGoogleUser = async () => {
+      const {user} = await signInWithGooglePopup();
+      const userDocRef = await createUserDocumentFromAuth(user)
     }
   console.log(formFields)
   return(
@@ -68,7 +76,11 @@ export default function SignUpForm() {
         <FormInput label="Email" type="email" required onChange={handleChange} name="email" value={email} />
         <FormInput label="Password" type="password" required onChange={handleChange} name="password" value={password} />
         <FormInput label="Confirm Password" type="password" required onChange={handleChange} name="confirmpwd" value={confirmpwd} />
+        <div className="buttons-container">
         <Button type="submit" onClick={handleSubmit}>Sign Up</Button>
+        <Button type="button" buttonType="google" onClick={logGoogleUser}>Google Sign Up</Button>
+        </div>
+
       </form>
     </div>
   )
