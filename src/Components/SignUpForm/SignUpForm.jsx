@@ -1,8 +1,7 @@
-import { useState, useContext } from "react"
+import { useState } from "react"
 import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth, signInWithGooglePopup} from "../../Utils/Firebase"
 import FormInput from "../FormInput/FormInput"
 import Button from "../Button/Button"
-import { UserContext } from "../../Contexts/User"
 import './SignUpForm.scss'
 const defaultFormFields = {
   displayName:'',
@@ -11,18 +10,9 @@ const defaultFormFields = {
   confirmpwd:'',
 }
 
-
-//password match
-//authenticated user with email apssword
-//create user document
-
-
-
 export default function SignUpForm() {
   const [formFields, setFormFields] = useState(defaultFormFields)
   const {displayName, email, password, confirmpwd} = formFields
-
-  const {setCurrentUser} = useContext(UserContext)
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields)
@@ -33,7 +23,6 @@ export default function SignUpForm() {
     setFormFields({...formFields, [name]: value})
   }
 
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (password !== confirmpwd) {
@@ -43,20 +32,14 @@ export default function SignUpForm() {
   
       try {
         const {user} = await createAuthUserWithEmailAndPassword(email, password);
-        console.log(user);
-
-        setCurrentUser(user)
-
         await createUserDocumentFromAuth(user, {displayName})
         resetFormFields()
-  
       } catch(error) {
-        
-        if (error.code === 'auth/email-already-in-use') {
-          alert("Email Already in Use")
-        }
-        else {
-          console.log("error")
+          if (error.code === 'auth/email-already-in-use') {
+            alert("Email Already in Use")
+          }
+          else {
+            console.log("error")
         }
       }
     }
@@ -71,7 +54,6 @@ export default function SignUpForm() {
       <h2>Don't Have an Account?</h2>
       <span>Sign Up with Email and Password</span>
       <form onSubmit={() =>{}}>
-        
         <FormInput label="Display Name" type="text" required onChange={handleChange} name="displayName" value={displayName} />
         <FormInput label="Email" type="email" required onChange={handleChange} name="email" value={email} />
         <FormInput label="Password" type="password" required onChange={handleChange} name="password" value={password} />
@@ -80,7 +62,6 @@ export default function SignUpForm() {
         <Button type="submit" onClick={handleSubmit}>Sign Up</Button>
         <Button type="button" buttonType="google" onClick={logGoogleUser}>Google Sign Up</Button>
         </div>
-
       </form>
     </div>
   )
