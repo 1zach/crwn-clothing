@@ -29,7 +29,6 @@ export default function SignUpForm() {
       alert("Passwords don't match")
       return
     }
-  
       try {
         const {user} = await createAuthUserWithEmailAndPassword(email, password);
         await createUserDocumentFromAuth(user, {displayName})

@@ -4,14 +4,14 @@ import './categories.styles.scss';
 import Home from './Routes/Home/Home';
 import Navigation from './Routes/Navigation/Navigation';
 import Authentication from './Routes/Authentication/Authentication';
-
+import Shop from './Routes/Shop/Shop';
 function App() {
 
-  function Shop() {
-    return (
-      <h1>Shop</h1>
-    )
-  }
+  // function Shop() {
+  //   return (
+  //    <Shop />
+  //   )
+  // }
 
   return (
     <Routes>
