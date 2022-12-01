@@ -9,7 +9,6 @@ export default function CheckOutItem(checkoutItem) {
   const clearItemHandler = () => {
     clearItemFromCart(checkoutItem.checkoutItem)
   }
-  console.log(useContext(CartContext))
   return(
     <div className="checkout-item-container">
       <img src={imageUrl} alt={`${name}`} className="image-container"/>

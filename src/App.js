@@ -6,6 +6,7 @@ import Navigation from './Routes/Navigation/Navigation';
 import Authentication from './Routes/Authentication/Authentication';
 import Shop from './Routes/Shop/Shop';
 import Checkout from './Routes/Checkout/Checkout';
+import CategoriesPreview from './Routes/CategoriesPreview/CategoriesPreview';
 function App() {
 
   // function Shop() {
@@ -18,7 +19,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Navigation/>}>
         <Route index={true} element={<Home />}/>
-        <Route path ="shop" element={<Shop />}/>
+        <Route path ="shop/*" element={<Shop />}/>
         <Route path ="authentication" element={<Authentication />}/>
         <Route path ="checkout" element={<Checkout/>}/>
       </Route>

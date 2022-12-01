@@ -8,16 +8,17 @@ import { Link } from "react-router-dom"
 
 export default function CardDropDown() {
   const cartItems = (useContext(CartContext)).cartItems  
-  console.log(cartItems)
   return(
     <div className='cart-dropdown-container'>
       <div className="cart-items">
-      {cartItems.map(item => 
-        <CartItem cartItem={item}/>
-      )}
+        {cartItems.length ? (
+        cartItems.map(item => <CartItem cartItem={item}/>
+        ))
+        :
+        <span className="empty-message">Your cart is Empty</span>
+        }
       </div>
-       <Link to="checkout"><Button>Go To Checkout</Button></Link>
-      
+      <Link to="checkout"><Button>Go To Checkout</Button></Link>
     </div>
   )
 }

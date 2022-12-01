@@ -47,7 +47,6 @@ export default function SignUpForm() {
       const {user} = await signInWithGooglePopup();
       const userDocRef = await createUserDocumentFromAuth(user)
     }
-  console.log(formFields)
   return(
     <div className="sign-up-container">
       <h2>Don't Have an Account?</h2>

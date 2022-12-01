@@ -1,9 +1,10 @@
 import { useState, useContext } from "react"
 import FormInput from "../FormInput/FormInput"
-import Button from "../Button/Button"
+import Button, {BUTTON_TYPE_CLASSES} from "../Button/Button"
 //import { UserContext } from "../../Contexts/User"
 import { authSignInWithEmailAndPassword, signInWithGooglePopup, createUserDocumentFromAuth } from "../../Utils/Firebase"
 import './SignInForm.scss'
+
 
 const defaultFormFields = {
   
@@ -47,7 +48,7 @@ export default function SignInForm() {
       }
     }
   }
-  console.log(formFields)
+
   return(
     <div className="sign-in-container">
       <h1>Sign In</h1>
@@ -57,7 +58,7 @@ export default function SignInForm() {
         <FormInput label="Password" type="password" required onChange={handleChange} name="password" value={password} />
       <div className="buttons-container">
         <Button type="submit" onClick={handleSubmit}>Sign In</Button>
-        <Button type="button" onClick={signInWithGoogle} buttonType="google">Google Sign In</Button>
+        <Button buttonType="google" type="button" onClick={signInWithGoogle} >Google Sign In</Button>
       </div>
       </form>
     </div>
